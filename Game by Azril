@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Game Klik Cepat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #1e1e2f;
+            color: white;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background: #4CAF50;
+            color: white;
+        }
+
+        button:disabled {
+            background: gray;
+            cursor: not-allowed;
+        }
+
+        .info {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🎮 Game Klik Cepat</h1>
+    <p>Klik tombol sebanyak mungkin dalam 10 detik!</p>
+
+    <button id="clickBtn" disabled>KLIK AKU!</button>
+
+    <div class="info">
+        <p>Skor: <span id="score">0</span></p>
+        <p>Waktu: <span id="time">10</span> detik</p>
+    </div>
+
+    <button id="startBtn">Mulai Game</button>
+
+    <script>
+        let score = 0;
+        let timeLeft = 10;
+        let timer;
+
+        const clickBtn = document.getElementById("clickBtn");
+        const startBtn = document.getElementById("startBtn");
+        const scoreText = document.getElementById("score");
+        const timeText = document.getElementById("time");
+
+        clickBtn.addEventListener("click", () => {
+            score++;
+            scoreText.textContent = score;
+        });
+
+        startBtn.addEventListener("click", () => {
+            score = 0;
+            timeLeft = 10;
+            scoreText.textContent = score;
+            timeText.textContent = timeLeft;
+
+            clickBtn.disabled = false;
+            startBtn.disabled = true;
+
+            timer = setInterval(() => {
+                timeLeft--;
+                timeText.textContent = timeLeft;
+
+                if (timeLeft === 0) {
+                    clearInterval(timer);
+                    clickBtn.disabled = true;
+                    startBtn.disabled = false;
+                    alert("Game selesai! Skor kamu: " + score);
+                }
+            }, 1000);
+        });
+    </script>
+
+</body>
+</html>
